@@ -1,16 +1,20 @@
 import { useState } from 'react'
-import { HelpCircle, ChevronDown } from 'lucide-react'
+import { HelpCircle, ChevronDown, Send } from 'lucide-react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 
 const FAQS = [
   {
+    q: 'How can I contact Blackbird support on Telegram?',
+    a: 'You can reach our official 24/7 customer support team on Telegram at @BlackbirdSupport or click the "Join Telegram Support" button on this page to chat directly with an agent.',
+  },
+  {
     q: 'Why is my withdrawal showing as pending?',
-    a: 'Withdrawals typically take up to 30 minutes to process after your wallet is activated. If your withdrawal has been pending for more than 30 minutes, please contact support. Note that unactivated wallets will not process any withdrawals.',
+    a: 'Withdrawals typically take up to 30 minutes to process after your wallet is activated. If your withdrawal has been pending for more than 30 minutes, please contact support on Telegram. Note that unactivated wallets will not process any withdrawals.',
   },
   {
     q: 'I have forgotten the last 4 digits of my gift card code.',
-    a: 'The last 4 digits of your gift card code are required to verify your identity during withdrawal. Please check the original email or packaging where your gift card was delivered. If you are unable to locate it, contact our support team.',
+    a: 'The last 4 digits of your gift card code are required to verify your identity during withdrawal. Please check the original email or packaging where your gift card was delivered. If you are unable to locate it, contact our Telegram support team.',
   },
   {
     q: 'How do I activate my Blackbird account?',
@@ -26,7 +30,7 @@ const FAQS = [
   },
   {
     q: 'My gift card code is showing as invalid. What should I do?',
-    a: 'Please double-check the card code you entered — ensure there are no spaces or typos. If the card has already been redeemed or has expired, it will show as invalid. For further assistance, contact our support team with a photo of your gift card.',
+    a: 'Please double-check the card code you entered — ensure there are no spaces or typos. If the card has already been redeemed or has expired, it will show as invalid. For further assistance, contact our support team on Telegram with a photo of your gift card.',
   },
   {
     q: 'What gift card brands does Blackbird accept?',
@@ -64,8 +68,30 @@ export default function FaqPage() {
             </div>
             <div>
               <div className="faq-header-title">Help Centre</div>
-              <div className="faq-header-sub">Find answers to common questions below.</div>
+              <div className="faq-header-sub">Find answers to common questions below or contact us directly on Telegram.</div>
             </div>
+          </div>
+
+          {/* Telegram Support Card */}
+          <div className="telegram-support-card">
+            <div className="telegram-info">
+              <div className="telegram-icon-wrap">
+                <Send size={22} color="#0088cc" />
+              </div>
+              <div>
+                <div className="telegram-title">24/7 Telegram Support</div>
+                <div className="telegram-sub">Need instant support with your account or withdrawals? Chat with our team on Telegram.</div>
+              </div>
+            </div>
+            <a
+              href="https://t.me/BlackbirdSupport"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="telegram-btn"
+            >
+              <Send size={15} />
+              <span>Join Telegram Support</span>
+            </a>
           </div>
 
           {/* FAQ Accordion */}
@@ -81,3 +107,4 @@ export default function FaqPage() {
     </div>
   )
 }
+

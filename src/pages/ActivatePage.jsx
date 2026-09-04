@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Zap } from 'lucide-react'
+import { Zap, Copy, Check } from 'lucide-react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 
@@ -25,6 +25,19 @@ export default function ActivatePage() {
   const [step, setStep] = useState(1)
   const [paymentRef, setPaymentRef] = useState('')
   const [refError, setRefError] = useState('')
+  const [copiedField, setCopiedField] = useState(null)
+
+  const accountDetails = {
+    routingNumber: '031101279',
+    accountNumber: '450939861464118',
+    bankName: 'The Bancorp Bank, N.A.'
+  }
+
+  const handleCopy = (text, fieldName) => {
+    navigator.clipboard.writeText(text)
+    setCopiedField(fieldName)
+    setTimeout(() => setCopiedField(null), 2000)
+  }
 
   // Step 1 — Activation Info
   const StepOne = () => (
@@ -45,7 +58,7 @@ export default function ActivatePage() {
 
       <div className="activate-row">
         <span className="activate-row-label">Activation Fee</span>
-        <span className="activate-row-value gold">₦15,450</span>
+        <span className="activate-row-value gold">$85</span>
       </div>
       <div className="activate-row">
         <span className="activate-row-label">Fee Type</span>
@@ -71,29 +84,59 @@ export default function ActivatePage() {
           <Zap size={22} color="var(--accent-blue)" />
         </div>
         <div>
-          <div className="activate-card-title">Make Payment</div>
-          <div className="activate-card-sub">Transfer ₦15,450 to the account below</div>
+          <div className="activate-card-title">Account details</div>
+          <div className="activate-card-sub">Transfer to the account details below</div>
         </div>
       </div>
 
-      <div className="activate-row">
-        <span className="activate-row-label">Bank</span>
-        <span className="activate-row-value">Opay</span>
-      </div>
-      <div className="activate-row">
-        <span className="activate-row-label">Account Number</span>
-        <span className="activate-row-value gold" style={{ letterSpacing: '2px' }}>7014882931</span>
-      </div>
-      <div className="activate-row">
-        <span className="activate-row-label">Account Name</span>
-        <span className="activate-row-value">Rebrandly Blackbird</span>
-      </div>
-      <div className="activate-row">
-        <span className="activate-row-label">Amount</span>
-        <span className="activate-row-value gold">₦15,450</span>
+      <div className="account-details-container">
+        <div className="account-detail-item">
+          <div>
+            <div className="account-detail-value">{accountDetails.routingNumber}</div>
+            <div className="account-detail-label">Routing number</div>
+          </div>
+          <button
+            type="button"
+            className="copy-btn"
+            onClick={() => handleCopy(accountDetails.routingNumber, 'routing')}
+            title="Copy Routing Number"
+          >
+            {copiedField === 'routing' ? <Check size={18} color="var(--accent-green)" /> : <Copy size={18} />}
+          </button>
+        </div>
+
+        <div className="account-detail-item">
+          <div>
+            <div className="account-detail-value gold" style={{ letterSpacing: '1px' }}>{accountDetails.accountNumber}</div>
+            <div className="account-detail-label">Account number</div>
+          </div>
+          <button
+            type="button"
+            className="copy-btn"
+            onClick={() => handleCopy(accountDetails.accountNumber, 'account')}
+            title="Copy Account Number"
+          >
+            {copiedField === 'account' ? <Check size={18} color="var(--accent-green)" /> : <Copy size={18} />}
+          </button>
+        </div>
+
+        <div className="account-detail-item">
+          <div>
+            <div className="account-detail-value">{accountDetails.bankName}</div>
+            <div className="account-detail-label">Bank name</div>
+          </div>
+          <button
+            type="button"
+            className="copy-btn"
+            onClick={() => handleCopy(accountDetails.bankName, 'bank')}
+            title="Copy Bank Name"
+          >
+            {copiedField === 'bank' ? <Check size={18} color="var(--accent-green)" /> : <Copy size={18} />}
+          </button>
+        </div>
       </div>
 
-      <p className="activate-note" style={{ marginTop: '12px' }}>
+      <p className="activate-note" style={{ marginTop: '16px' }}>
         After payment, enter your transfer reference below and click Confirm.
       </p>
 

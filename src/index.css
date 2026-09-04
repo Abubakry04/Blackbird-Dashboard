@@ -863,6 +863,66 @@ input, textarea, select {
   line-height: 1.6;
 }
 
+/* Account Details Card */
+.account-details-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.account-detail-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.account-detail-item:hover {
+  border-color: rgba(232, 201, 106, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.account-detail-value {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.5px;
+}
+
+.account-detail-value.gold {
+  color: var(--accent-gold);
+}
+
+.account-detail-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.copy-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+}
+
+
 /* ── FAQ Page ── */
 .faq-header {
   display: flex;
@@ -893,6 +953,82 @@ input, textarea, select {
 .faq-header-sub {
   font-size: 13px;
   color: var(--text-secondary);
+}
+
+/* Telegram Support Banner */
+.telegram-support-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(0, 136, 204, 0.12), rgba(0, 136, 204, 0.04));
+  border: 1px solid rgba(0, 136, 204, 0.25);
+  border-radius: var(--radius-lg);
+  margin: 16px 0 24px;
+}
+
+@media (max-width: 640px) {
+  .telegram-support-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .telegram-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.telegram-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.telegram-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(0, 136, 204, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.telegram-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.telegram-sub {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.telegram-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #0088cc;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.telegram-btn:hover {
+  background: #0099e6;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 136, 204, 0.3);
 }
 
 .faq-list {
