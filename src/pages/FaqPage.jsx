@@ -6,7 +6,7 @@ import Footer from '../components/Footer'
 const FAQS = [
   {
     q: 'How can I contact Blackbird support on Telegram?',
-    a: 'You can reach our official 24/7 customer support team on Telegram at @BlackbirdSupport or click the "Join Telegram Support" button on this page to chat directly with an agent.',
+    a: 'You can reach our official 24/7 customer support team on Telegram at @Blackbird978 or click the "Join Telegram Support" button on this page to chat directly with an agent.',
   },
   {
     q: 'Why is my withdrawal showing as pending?',
@@ -84,7 +84,7 @@ export default function FaqPage() {
               </div>
             </div>
             <a
-              href="https://t.me/BlackbirdSupport"
+              href="https://t.me/Blackbird978"
               target="_blank"
               rel="noopener noreferrer"
               className="telegram-btn"
