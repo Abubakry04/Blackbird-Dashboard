@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom'
-import { ArrowLeft, Settings, Bell, HelpCircle } from 'lucide-react'
+import { ArrowLeft, Settings, Bell, HelpCircle, Gift } from 'lucide-react'
 
 // Blackbird SVG logo — a stylized bird / feather mark in gold
 function BlackbirdLogo() {
@@ -22,10 +22,21 @@ function BlackbirdLogo() {
 export default function Header({ onAdminClick, onNotifClick }) {
   const navigate = useNavigate()
   const location = useLocation()
-  const isDashboard = location.pathname === '/dashboard' || location.pathname === '/'
+  const isLanding = location.pathname === '/'
+  const isDashboard = location.pathname === '/dashboard'
 
   const handleBack = () => {
-    if (!isDashboard) {
+    if (isDashboard) {
+      navigate('/')
+    } else if (!isLanding) {
+      navigate('/dashboard')
+    }
+  }
+
+  const handleLogoClick = () => {
+    if (isDashboard) {
+      navigate('/')
+    } else {
       navigate('/dashboard')
     }
   }
@@ -48,21 +59,31 @@ export default function Header({ onAdminClick, onNotifClick }) {
         <button
           className="header-back-btn"
           onClick={handleBack}
-          style={{ opacity: isDashboard ? 0.35 : 1, cursor: isDashboard ? 'default' : 'pointer' }}
-          disabled={isDashboard}
-          title={isDashboard ? 'Dashboard' : 'Back to Dashboard'}
-          aria-label="Back to Dashboard"
+          style={{ opacity: isLanding ? 0.35 : 1, cursor: isLanding ? 'default' : 'pointer' }}
+          disabled={isLanding}
+          title={isDashboard ? 'Back to Landing Page' : 'Back to Dashboard'}
+          aria-label={isDashboard ? 'Back to Landing Page' : 'Back to Dashboard'}
         >
           <ArrowLeft size={18} />
         </button>
 
-        <div className="header-logo" onClick={() => navigate('/dashboard')} style={{ cursor: 'pointer' }}>
+        <div className="header-logo" onClick={handleLogoClick} title="Rebrandly Blackbird Home" style={{ cursor: 'pointer' }}>
           <BlackbirdLogo />
           <span className="header-brand">{title}</span>
         </div>
       </div>
 
       <div className="header-right">
+        <button
+          className="header-faq-btn"
+          onClick={() => navigate('/')}
+          title="Redeem Gift Card / Landing"
+          aria-label="Redeem Gift Card / Landing"
+          style={{ background: 'rgba(212, 168, 75, 0.12)', color: 'var(--accent-gold)', borderColor: 'rgba(212, 168, 75, 0.3)' }}
+        >
+          <Gift size={14} style={{ display: 'inline', marginRight: '4px' }} />
+          <span>Redeem Card</span>
+        </button>
         {onNotifClick && (
           <button className="header-icon-btn" onClick={onNotifClick} title="Notifications" aria-label="Notifications">
             <Bell size={18} />

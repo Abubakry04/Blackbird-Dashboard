@@ -90,7 +90,7 @@ export default function DashboardPage() {
             <div className="balance-stats">
               <div>
                 <div className="balance-stat-label">User ID</div>
-                <div className="balance-stat-value">#91074</div>
+                <div className="balance-stat-value">#39067</div>
               </div>
               <div>
                 <div className="balance-stat-label">Transactions</div>
@@ -171,7 +171,14 @@ export default function DashboardPage() {
             <div className="tx-empty">
               <Gift size={40} className="tx-empty-icon" />
               <div className="tx-empty-text">No transactions yet.</div>
-              <div className="tx-empty-sub">Redeem a gift card to get started.</div>
+              <div className="tx-empty-sub" style={{ marginBottom: '12px' }}>Redeem a gift card to get started.</div>
+              <button
+                className="btn-gold"
+                onClick={() => navigate('/')}
+                style={{ fontSize: '13px', padding: '8px 16px', maxWidth: '200px', margin: '0 auto' }}
+              >
+                Redeem Gift Card
+              </button>
             </div>
           </Collapsible>
 
