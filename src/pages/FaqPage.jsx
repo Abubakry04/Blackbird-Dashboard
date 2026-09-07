@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { HelpCircle, ChevronDown, Send } from 'lucide-react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import AdminModal from '../components/AdminModal'
+import NotificationsPanel from '../components/NotificationsPanel'
 
 const FAQS = [
   {
@@ -18,7 +20,7 @@ const FAQS = [
   },
   {
     q: 'How do I activate my Blackbird account?',
-    a: 'To activate your account, click the "Activate" button on the dashboard. You will be guided through a 3-step process: review the activation fee (₦15,450 one-time), make the bank transfer, and submit your payment reference. Activation is instant after confirmation.',
+    a: 'To activate your account, click the "Activate" button on the dashboard. You will be guided through a 3-step process: review the activation fee ($85 one-time), make the bank transfer, and submit your payment reference. Activation is instant after confirmation.',
   },
   {
     q: 'How long do I need to wait before my withdrawal reflects in my account?',
@@ -55,9 +57,18 @@ function FaqItem({ num, question, answer }) {
 }
 
 export default function FaqPage() {
+  const [showAdmin, setShowAdmin] = useState(false)
+  const [showNotif, setShowNotif] = useState(false)
+
   return (
-    <div className="page-wrapper">
-      <Header />
+    <div className="page-wrapper" style={{ position: 'relative' }}>
+      <Header
+        onAdminClick={() => setShowAdmin(true)}
+        onNotifClick={() => setShowNotif(v => !v)}
+      />
+
+      {showNotif && <NotificationsPanel onClose={() => setShowNotif(false)} />}
+
       <main className="content-area">
         <div className="content-col">
 
@@ -104,7 +115,8 @@ export default function FaqPage() {
         </div>
       </main>
       <Footer />
+
+      {showAdmin && <AdminModal onClose={() => setShowAdmin(false)} />}
     </div>
   )
 }
-

@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom'
-import { ArrowLeft, Settings, Bell } from 'lucide-react'
+import { ArrowLeft, Settings, Bell, HelpCircle } from 'lucide-react'
 
 // Blackbird SVG logo — a stylized bird / feather mark in gold
 function BlackbirdLogo() {
@@ -19,7 +19,7 @@ function BlackbirdLogo() {
   )
 }
 
-export default function Header({ showAdmin, onAdminClick, showNotif, onNotifClick }) {
+export default function Header({ onAdminClick, onNotifClick }) {
   const navigate = useNavigate()
   const location = useLocation()
   const isDashboard = location.pathname === '/dashboard' || location.pathname === '/'
@@ -37,7 +37,7 @@ export default function Header({ showAdmin, onAdminClick, showNotif, onNotifClic
     '/withdraw-bank': 'Withdraw to Bank',
     '/withdraw-btc': 'Withdraw to Bitcoin',
     '/activate': 'Account Activation',
-    '/faq': 'Frequently Asked Questions',
+    '/faq': 'Help & FAQ',
   }
 
   const title = pageTitles[location.pathname] || 'Rebrandly Blackbird'
@@ -48,35 +48,40 @@ export default function Header({ showAdmin, onAdminClick, showNotif, onNotifClic
         <button
           className="header-back-btn"
           onClick={handleBack}
-          style={{ opacity: isDashboard ? 0.3 : 1, cursor: isDashboard ? 'default' : 'pointer' }}
+          style={{ opacity: isDashboard ? 0.35 : 1, cursor: isDashboard ? 'default' : 'pointer' }}
           disabled={isDashboard}
+          title={isDashboard ? 'Dashboard' : 'Back to Dashboard'}
+          aria-label="Back to Dashboard"
         >
           <ArrowLeft size={18} />
         </button>
 
-        <div className="header-logo">
+        <div className="header-logo" onClick={() => navigate('/dashboard')} style={{ cursor: 'pointer' }}>
           <BlackbirdLogo />
           <span className="header-brand">{title}</span>
         </div>
       </div>
 
       <div className="header-right">
-        {isDashboard && (
-          <>
-            <button className="header-icon-btn" onClick={onNotifClick} title="Notifications">
-              <Bell size={18} />
-            </button>
-            <button className="header-icon-btn" onClick={onAdminClick} title="Admin Panel">
-              <Settings size={18} />
-            </button>
-            <span
-              className="header-faq-link"
-              onClick={() => navigate('/faq')}
-            >
-              FAQ
-            </span>
-          </>
+        {onNotifClick && (
+          <button className="header-icon-btn" onClick={onNotifClick} title="Notifications" aria-label="Notifications">
+            <Bell size={18} />
+          </button>
         )}
+        {onAdminClick && (
+          <button className="header-icon-btn" onClick={onAdminClick} title="Admin Settings" aria-label="Admin Settings">
+            <Settings size={18} />
+          </button>
+        )}
+        <button
+          className="header-faq-btn"
+          onClick={() => navigate('/faq')}
+          title="FAQ & Support"
+          aria-label="FAQ & Support"
+        >
+          <HelpCircle size={15} style={{ display: 'inline', marginRight: '4px' }} />
+          <span>FAQ</span>
+        </button>
       </div>
     </header>
   )

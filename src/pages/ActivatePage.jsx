@@ -3,14 +3,21 @@ import { useNavigate } from 'react-router-dom'
 import { Zap, Copy, Check } from 'lucide-react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import AdminModal from '../components/AdminModal'
+import NotificationsPanel from '../components/NotificationsPanel'
 
 // 3-step stepper
-function Stepper({ current }) {
+function Stepper({ current, setStep }) {
   return (
     <div className="stepper">
       {[1, 2, 3].map((step, i) => (
         <div key={step} style={{ display: 'flex', alignItems: 'center', flex: i < 2 ? '1' : 'none' }}>
-          <div className={`step-node ${current === step ? 'active' : 'inactive'}`}>
+          <div
+            className={`step-node ${current === step ? 'active' : 'inactive'}`}
+            onClick={() => { if (step < current) setStep(step) }}
+            style={{ cursor: step < current ? 'pointer' : 'default' }}
+            title={`Step ${step}`}
+          >
             {step}
           </div>
           {i < 2 && <div className="step-line" />}
@@ -22,6 +29,8 @@ function Stepper({ current }) {
 
 export default function ActivatePage() {
   const navigate = useNavigate()
+  const [showAdmin, setShowAdmin] = useState(false)
+  const [showNotif, setShowNotif] = useState(false)
   const [step, setStep] = useState(1)
   const [paymentRef, setPaymentRef] = useState('')
   const [refError, setRefError] = useState('')
@@ -148,9 +157,10 @@ export default function ActivatePage() {
           placeholder="e.g. REF123456789"
           value={paymentRef}
           onChange={e => { setPaymentRef(e.target.value); setRefError('') }}
+          onKeyDown={e => e.key === 'Enter' && handleContinue()}
           style={{ marginTop: '8px' }}
         />
-        {refError && <span style={{ color: '#ef4444', fontSize: '11px' }}>{refError}</span>}
+        {refError && <span style={{ color: '#ef4444', fontSize: '11px', marginTop: '4px', display: 'block' }}>{refError}</span>}
       </div>
     </div>
   )
@@ -188,11 +198,17 @@ export default function ActivatePage() {
   }
 
   return (
-    <div className="page-wrapper">
-      <Header />
+    <div className="page-wrapper" style={{ position: 'relative' }}>
+      <Header
+        onAdminClick={() => setShowAdmin(true)}
+        onNotifClick={() => setShowNotif(v => !v)}
+      />
+
+      {showNotif && <NotificationsPanel onClose={() => setShowNotif(false)} />}
+
       <main className="content-area">
         <div className="content-col">
-          <Stepper current={step} />
+          <Stepper current={step} setStep={setStep} />
 
           {step === 1 && <StepOne />}
           {step === 2 && <StepTwo />}
@@ -207,6 +223,8 @@ export default function ActivatePage() {
         </div>
       </main>
       <Footer />
+
+      {showAdmin && <AdminModal onClose={() => setShowAdmin(false)} />}
     </div>
   )
 }
